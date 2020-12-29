@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: lenzebo/zbo:v1
-    #    needs: [lint]
+    needs: [lint]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
