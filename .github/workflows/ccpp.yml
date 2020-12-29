@@ -54,7 +54,7 @@ jobs:
         with:
           submodules: true
       - name: Run unit tests
-        working-directory: ${{runner.workspace}}
+        working-directory: ${{ github.workspace }}
         shell: bash
         run: bazel test //...
 
