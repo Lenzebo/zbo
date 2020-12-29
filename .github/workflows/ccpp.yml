@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
 
 jobs:
   lint:
@@ -24,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: lenzebo/zbo:v1
-    needs: [lint]
+    #    needs: [lint]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v2
@@ -33,9 +36,12 @@ jobs:
       - name: run-cmake
         uses: lukka/run-cmake@v2
         with:
+          cmakeBuildType: $BUILD_TYPE
           buildWithCMake: true
-          buildDirectory: '${{ runner.workspace }}/build'
+          buildDirectory: ${{runner.workspace}}/build
       - name: Run unit tests
-        run: cd ${{ runner.workspace }}/build && ctest
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ctest -C $BUILD_TYPE
 
 
