@@ -57,5 +57,19 @@ jobs:
         working-directory: ${{ github.workspace }}
         shell: bash
         run: bazel test //...
+  build-bazel-sanitizer:
+    runs-on: ubuntu-latest
+    container:
+      image: lenzebo/zbo:v2
+    needs: [lint]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Run unit tests
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        run: bazel test --config=asan --config=ubsan --config=lsan //...
 
 
