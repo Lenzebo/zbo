@@ -1,0 +1,28 @@
+build:san_common --keep_going
+build:san_common --nocache_test_results
+build:san_common --copt -O1
+build:san_common --copt -U_FORTIFY_SOURCE
+build:san_common --copt -fno-omit-frame-pointer
+build:san_common --strip=never
+
+build:asan --config=san_common
+build:asan --copt -fsanitize=address
+build:asan --copt -DADDRESS_SANITIZER
+build:asan --copt -g
+build:asan --linkopt -fsanitize=address
+
+# leak sanitizer not supported in clang < 12, please use asan
+build:lsan --config=san_common
+build:lsan --copt -fsanitize=leak
+build:lsan --copt -DLEAK_SANITIZER
+build:lsan --linkopt -fsanitize=leak
+
+build:ubsan --config=san_common
+build:ubsan --copt -fsanitize=undefined
+build:ubsan --linkopt -fsanitize=undefined
+
+build:tsan --config=san_common
+build:tsan --copt -fsanitize=thread
+build:tsan --noforce_pic
+build:tsan --copt -g
+build:tsan --linkopt -fsanitize=thread

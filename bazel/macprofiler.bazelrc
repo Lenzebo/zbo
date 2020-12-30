@@ -1,0 +1,8 @@
+# This will invoce the mac os native profiling library
+# Note that as of bazel 3.5, symbols are still broken :(
+# see https://github.com/bazelbuild/bazel/issues/2537
+run:profile_mac --spawn_strategy=local
+run:profile_mac --run_under="xcrun xctrace record -t \"Time Profiler\" --launch -- "
+
+run:leakcheck_mac --spawn_strategy=local
+run:leakcheck_mac --run_under="xcrun xctrace record -t \"Leaks\" --launch -- "
