@@ -7,3 +7,6 @@ build:opt --copt -g
 build:opt --copt -O3
 build:opt --copt -march=native
 build:opt --strip=never
+
+import %workspace%/bazel/sanitizer.bazelrc
+import %workspace%/bazel/macprofiler.bazelrc
