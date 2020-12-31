@@ -48,7 +48,8 @@ TEST(NamedType, Arithmetic)
     ASSERT_DOUBLE_EQ(ratio, 4.0);
     result /= ratio;
     ASSERT_EQ(result, LENGTH);
-    result -= result;
+    const auto other = result;
+    result -= other;
     ASSERT_EQ(result, Meter{});
 }
 
