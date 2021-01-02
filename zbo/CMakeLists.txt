@@ -10,7 +10,7 @@ add_library(named_type INTERFACE)
 target_include_directories(named_type INTERFACE ..)
 add_library(factory INTERFACE)
 
-if (ZBO_ENABLE_TESTS)
+if (ZBO_BUILD_TESTS)
     add_executable(circular_range_test circular_range_test.cpp)
     target_link_libraries(circular_range_test circular_range CONAN_PKG::gtest)
     target_enable_clang_tidy(circular_range_test)
