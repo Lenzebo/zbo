@@ -16,5 +16,7 @@ conan_cmake_run(
         BUILD
         missing)
 
+option(ZBO_BUILD_TESTS "Enable compilation of unit tests" ON)
+
 enable_testing()
 add_subdirectory(zbo)
