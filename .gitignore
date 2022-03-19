@@ -34,3 +34,10 @@
 # Cmake build folders from Clion
 /.idea/
 /cmake-build-*/
+
+bazel-bin
+bazel-code
+bazel-out
+bazel-testlogs
+bazel-zbo
+.clwb
