@@ -44,8 +44,8 @@ class MaxSizeVector
     using const_reference = const T&;  // NOLINT (readability-identifier-naming)
     using iterator = T*;               // NOLINT (readability-identifier-naming)
 
-    static_assert(std::is_trivially_constructible_v<T>,
-                  "T must be trivially constructable for now to simplify some assumptions and we can reuse "
+    static_assert(std::is_default_constructible_v<T>,
+                  "T must be default constructible for now to simplify some assumptions and we can reuse "
                   "std::array as implementation detail");
 
     constexpr MaxSizeVector() = default;
@@ -69,7 +69,7 @@ class MaxSizeVector
     [[nodiscard]] constexpr const T* begin() const noexcept { return data_.begin(); }
     [[nodiscard]] constexpr const T* end() const noexcept { return std::next(begin(), size()); }
 
-    constexpr void reserve([[maybe_unused]] size_t newSize) noexcept { ZBO_PRECONDITION(newSize < maxSize); }
+    constexpr void reserve([[maybe_unused]] size_t newSize) noexcept { ZBO_PRECONDITION(newSize < maxSize) }
     constexpr void clear() noexcept { count_ = 0; }
 
     template <class InputIterator>
@@ -97,25 +97,25 @@ class MaxSizeVector
     constexpr void erase(T* first, T* last)
     {
         const size_t length = std::distance(first, last);
-        ZBO_PRECONDITION(length <= size());
+        ZBO_PRECONDITION(length <= size())
         std::move(last, end(), first);
         count_ -= length;
     }
 
     constexpr void erase(T* elem)
     {
-        ZBO_PRECONDITION(elem != end());
+        ZBO_PRECONDITION(elem != end())
         erase(elem, std::next(elem));
     }
 
     [[nodiscard]] constexpr T& at(size_t idx)
     {
-        ZBO_PRECONDITION(idx < count_);
+        ZBO_PRECONDITION(idx < count_)
         return data_.at(idx);
     }
     [[nodiscard]] constexpr const T& at(size_t idx) const
     {
-        ZBO_PRECONDITION(idx < count_);
+        ZBO_PRECONDITION(idx < count_)
         return data_.at(idx);
     }
 
@@ -133,7 +133,7 @@ class MaxSizeVector
     // NOLINTNEXTLINE (readability-identifier-naming)
     constexpr void push_back(T&& elem)
     {
-        ZBO_PRECONDITION(count_ < maxSize);
+        ZBO_PRECONDITION(count_ < maxSize)
         count_++;
         back() = elem;
     }
@@ -141,7 +141,7 @@ class MaxSizeVector
     // NOLINTNEXTLINE (readability-identifier-naming)
     constexpr void push_back(const T& elem)
     {
-        ZBO_PRECONDITION(count_ < maxSize);
+        ZBO_PRECONDITION(count_ < maxSize)
         count_++;
         back() = elem;
     }
