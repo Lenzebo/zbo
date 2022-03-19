@@ -9,6 +9,6 @@ RUN apt-get update \
 ENV CC=/usr/bin/gcc-10
 ENV CXX=/usr/bin/g++-10
 RUN python3 -m pip install --upgrade pip setuptools \
-    && python3 -m pip install conan \
-RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.5/bazelisk-linux-amd64 \
+    && python3 -m pip install conan
+RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.11.0/bazelisk-linux-amd64 \
     && chmod +x bazelisk-linux-amd64 && mv bazelisk-linux-amd64 /usr/bin/bazel
