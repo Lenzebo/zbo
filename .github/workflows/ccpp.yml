@@ -61,6 +61,8 @@ jobs:
         run: bazel test --remote_header=x-buildbuddy-api-key=${{ env.bb_api_key }} //...
   build-bazel-sanitizer:
     runs-on: ubuntu-latest
+    env:
+      bb_api_key: ${{ secrets.BUILDBUDDY_API_KEY }}
     container:
       image: lenzebo/zbo:v3
     needs: [lint]
@@ -72,6 +74,6 @@ jobs:
       - name: Run unit tests
         working-directory: ${{ github.workspace }}
         shell: bash
-        run: bazel test --config=asan --config=ubsan --config=lsan //...
+        run: bazel test --config=asan --config=ubsan --config=lsan --remote_header=x-buildbuddy-api-key=${{ env.bb_api_key }} //...
 
 
