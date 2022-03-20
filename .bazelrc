@@ -10,3 +10,6 @@ build:opt --strip=never
 
 import %workspace%/bazel/sanitizer.bazelrc
 import %workspace%/bazel/macprofiler.bazelrc
+import %workspace%/bazel/buildbuddy.bazelrc
+build --build_metadata=REPO_URL=https://github.com/lenzebo/zbo.git
+try-import auth.bazelrc
